@@ -9,6 +9,7 @@ namespace PruebaBCP.Repositories
     public interface ICurrencyRepository
     {
         IEnumerable<Currency> GetAll();
+        Currency Get(string code);
     }
 
     public class CurrencyRepository : ICurrencyRepository
@@ -23,6 +24,11 @@ namespace PruebaBCP.Repositories
         public IEnumerable<Currency> GetAll()
         {
             return _context.Currencies.ToList();
+        }
+
+        public Currency Get(string code)
+        {
+            return _context.Currencies.First(x => x.Code == code);
         }
     }
 }

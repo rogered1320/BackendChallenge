@@ -41,6 +41,8 @@ namespace PruebaBCP
 
             services.AddScoped<ICurrencyExchangeRepository, CurrencyExchangeRepository>();
             services.AddScoped<ICurrencyExchangeService, CurrencyExchangeService>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddControllers();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -75,8 +77,17 @@ namespace PruebaBCP
             {
                 endpoints.MapControllers();
             });
-            CreateDefaultUser(app);
             app.UseAuthentication();
+
+            RunMigrations(app);
+            CreateDefaultUser(app);
+        }
+
+        private static void RunMigrations(IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+            var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            context.Database.Migrate();
         }
 
         private static void CreateDefaultUser(IApplicationBuilder app)

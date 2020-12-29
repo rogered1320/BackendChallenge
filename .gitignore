@@ -1,3 +1,5 @@
 /PruebaBCP/.vs/*
 /PruebaBCP/PruebaBCP/bin/*
 /PruebaBCP/PruebaBCP/obj/
+/PruebaBCP/PruebaBCP.tests/bin/*
+/PruebaBCP/PruebaBCP.tests/obj/

@@ -1,0 +1,14 @@
+﻿version: "3.9"
+services:
+    web:
+        build: .
+        ports:
+            - "8000:80"
+        depends_on:
+            - db
+    db:
+         build:
+             context: .
+             dockerfile: DbDockerfile
+         ports:
+            - "1433:1433"
