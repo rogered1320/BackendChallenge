@@ -1,31 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PruebaBCP.Models;
+using PruebaBCP.Services;
 
 namespace PruebaBCP.Controllers
 {
     [ApiController]
-    [Route("v1/[controller]")]
+    [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     public class CurrencyController : ControllerBase
     {
-        private static readonly string[] Summaries = {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
+        private readonly ICurrencyService _service;
         private readonly ILogger<CurrencyController> _logger;
 
-        public CurrencyController(ILogger<CurrencyController> logger)
+        public CurrencyController(ILogger<CurrencyController> logger, ICurrencyService service)
         {
+            _service = service;
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Currency> Get()
         {
-            var rng = new Random();
-            return Summaries;
-          
+            return _service.GetAll();
         }
     }
 }

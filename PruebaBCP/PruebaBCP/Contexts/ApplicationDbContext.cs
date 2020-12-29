@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using PruebaBCP.Models;
 
 namespace PruebaBCP.Contexts
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -26,6 +28,7 @@ namespace PruebaBCP.Contexts
             modelBuilder.Entity<CurrencyExchange>()
                 .HasOne(x => x.ToCurrency).WithMany().HasForeignKey(x => x.ToCurrencyCode)
                 .OnDelete(DeleteBehavior.NoAction);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -27,7 +27,8 @@ namespace PruebaBCP.Services
                 FromCurrency = exchange.FromCurrency,
                 ToCurrency = exchange.ToCurrency,
                 Amount = amount,
-                NewAmount = newAmount
+                ConvertResult = newAmount,
+                Rate = exchange.Rate
             };
         }
     }

@@ -8,9 +8,10 @@ namespace PruebaBCP.ViewModels
 {
     public class CurrencyExchangeCalculatorResponse
     {
-        public decimal Amount { get; set; }
         public Currency FromCurrency { get; set; }
         public Currency ToCurrency { get; set; }
-        public decimal NewAmount { get; set; }
+        public decimal Amount { get; set; }
+        public decimal ConvertResult { get; set; }
+        public decimal Rate { get; set; }
     }
 }
