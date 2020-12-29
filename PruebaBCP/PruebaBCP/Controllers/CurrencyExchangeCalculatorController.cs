@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PruebaBCP.Services;
@@ -9,6 +10,7 @@ namespace PruebaBCP.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [EnableCors("Default")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
     public class CurrencyExchangeCalculatorController : ControllerBase

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
@@ -57,6 +58,17 @@ namespace PruebaBCP
                         ClockSkew = TimeSpan.Zero
                     });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Default",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,16 +81,11 @@ namespace PruebaBCP
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
             app.UseAuthentication();
-
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseCors();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             RunMigrations(app);
             CreateDefaultUser(app);
         }
@@ -96,7 +103,7 @@ namespace PruebaBCP
             var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
             if (userManager.FindByEmailAsync("admin@admin.com").Result == null)
             {
-                var user = new ApplicationUser {UserName = "admin", Email = "admin@admin.com"};
+                var user = new ApplicationUser { UserName = "admin", Email = "admin@admin.com" };
                 var result = userManager.CreateAsync(user, "Admin123@").Result;
             }
         }

@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,7 @@ namespace PruebaBCP.Controllers
         }
 
         [HttpPost]
+        [EnableCors("Default")]
         public async Task<ActionResult<UserToken>> Login([FromBody] UserInfo userInfo)
         {
             var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password, isPersistent: false, lockoutOnFailure: false);
