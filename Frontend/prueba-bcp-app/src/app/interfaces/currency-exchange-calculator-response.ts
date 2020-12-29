@@ -1,7 +1,7 @@
 export interface CurrencyExchangeCalculatorResponse {
-        FromCurrency: any;
-        ToCurrency: any;
-        Amount: number;
-        ConvertResult: number;
-        Rate: number;
+        fromCurrency: any;
+        toCurrency: any;
+        amount: number;
+        convertResult: number;
+        rate: number;
 }

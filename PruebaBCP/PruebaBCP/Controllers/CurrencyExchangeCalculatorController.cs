@@ -8,11 +8,8 @@ using PruebaBCP.ViewModels;
 
 namespace PruebaBCP.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("Default")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-
+    [ApiController]
     public class CurrencyExchangeCalculatorController : ControllerBase
     {
         private readonly ILogger<CurrencyExchangeCalculatorController> _logger;
@@ -24,8 +21,9 @@ namespace PruebaBCP.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public CurrencyExchangeCalculatorResponse Get([FromQuery]CurrencyExchangeCalculatorPayload payload)
+        [HttpPost]
+        [EnableCors("Default")]
+        public CurrencyExchangeCalculatorResponse Get([FromBody]CurrencyExchangeCalculatorPayload payload)
         {
             return _service.CalculateChangeExchange(payload.FromCurrency, payload.ToCurrency, payload.Amount);
         }

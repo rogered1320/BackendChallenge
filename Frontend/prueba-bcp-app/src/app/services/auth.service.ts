@@ -28,8 +28,8 @@ export class AuthService {
   login(request: UserInfo) {
     return this.http.post<UserToken>(`${environment.baseUrl}auth`, request)
       .pipe( map(response => {
-        localStorage.setItem(this.BEARER_TOKEN_PREFIX, response.Token);
-        this.currentBearerTokenSubject.next(response.Token);
+        localStorage.setItem(this.BEARER_TOKEN_PREFIX, response.token);
+        this.currentBearerTokenSubject.next(response.token);
         return response;
       }));
   }

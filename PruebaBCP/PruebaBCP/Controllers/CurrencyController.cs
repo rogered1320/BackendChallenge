@@ -10,9 +10,8 @@ using PruebaBCP.Services;
 
 namespace PruebaBCP.Controllers
 {
-    [ApiController]
-    [EnableCors("Default")]
     [Route("api/[controller]")]
+    [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
     public class CurrencyController : ControllerBase

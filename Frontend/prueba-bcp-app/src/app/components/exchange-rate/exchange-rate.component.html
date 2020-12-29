@@ -1,1 +1,52 @@
-<p>exchange-rate works!</p>
+
+  <div class="row">
+    <div class="col-sm">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Moneda origen</th>
+            <th scope="col">Moneda destino</th>
+            <th scope="col">Monto</th>
+            <th scope="col"></th>
+            <th scope="col">Monto convertido</th>
+            <th scope="col">Tipo de cambio</th>
+          </tr>
+        </thead>
+        <tbody [formGroup]="form">
+          <tr>
+            <th scope="row">
+                <div class="col-sm">
+                    <select class="form-control" formControlName="FromCurrency" required >
+                        <option>USD</option>
+                        <option>PEN</option>
+                        <option>MXN</option>
+                    </select>
+                  </div>
+            </th>
+            <td>
+                <div class="col-sm">
+                    <select class="form-control" formControlName="ToCurrency" required >
+                        <option>USD</option>
+                        <option>PEN</option>
+                        <option>MXN</option>
+                    </select>
+                  </div>    
+            </td>
+            <td>
+                <div class="col-sm">
+                    <input type="number" class="form-control" formControlName="Amount" required />
+                  </div>
+            </td>
+
+            <td>
+                <div class="col-sm">
+                    <button type="submit" class="btn btn-primary" [disabled]="!form.valid" (click)="calculate()">Calcular</button>
+                  </div>
+            </td>
+            <td *ngIf="model">{{model.convertResult}}</td>
+            <td *ngIf="model">{{model.rate}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
